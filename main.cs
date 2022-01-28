@@ -2,15 +2,21 @@ using System;
 using Eratosthenes;
 
 
-class HelloWorld
+class PrimeFinder
 {
     static void Main()
     {
-        bool[] primes = Eratosthenes.Primes.FindPrimes(100000000);
-        double total = 0;
-        for (int i = 2; i < primes.Length; i++)
-            if (primes[i] == true)
-                total += i;
-        System.Console.WriteLine(total);
+        bool[] primes = Eratosthenes.Primes.FindPrimes(2000);
+        Eratosthenes.Primes.LogSumOfPrimes(primes);
+
+        bool[] primes2 = Eratosthenes.Primes.FindPrimesThreadedSimple(2000);
+        Eratosthenes.Primes.LogSumOfPrimes(primes2);
+
+        bool[] primes3 = Eratosthenes.Primes.FindPrimesThreaded(2000);
+        Eratosthenes.Primes.LogSumOfPrimes(primes3);
+
+        // Eratosthenes.Primes.LogPrimes(primes);
+        // Eratosthenes.Primes.LogPrimes(primes2);
+        // Eratosthenes.Primes.LogPrimes(primes3);
     }
 }
