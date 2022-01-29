@@ -39,9 +39,6 @@ namespace PrimeUtil
 
             ranges[8] = Length;
 
-            // foreach (int range in ranges)
-            //     Console.Write(String.Format("{0}, ", range));
-
             Thread[] threads = new Thread[8];
 
             Stopwatch stopwatch = new Stopwatch();

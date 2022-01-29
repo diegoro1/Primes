@@ -1,13 +1,14 @@
 using System;
 using System.Linq;
-using System.Diagnostics;
 using System.Threading;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Eratosthenes
 {
     class Primes
     {
-        public static bool[] FindPrimes(int size)
+        public static (bool[], double) FindPrimes(int size)
         {
             bool[] primes = Enumerable.Repeat(true, size).ToArray();
             Stopwatch stopwatch = new Stopwatch();
@@ -19,19 +20,25 @@ namespace Eratosthenes
                         primes[j] = false;
             stopwatch.Stop();
 
-            Console.WriteLine("Elapsed Time is {0} ms", stopwatch.ElapsedMilliseconds);
-
-            return primes;
+            return (primes, stopwatch.ElapsedMilliseconds);
         }
 
         private static void FindPrimesByMultiple(int n, bool[] primes)
         {
-            for (int i = n; i < primes.Length; i += 10)
-                for (int j = i * i; j < primes.Length; j += i)
-                    primes[j] = false;
+            try
+            {
+                for (int i = n; i < primes.Length; i += 10)
+                    for (int j = i * i; j < primes.Length; j += 1)
+                        primes[j] = false;
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+                return;
+            }
         }
 
-        public static bool[] FindPrimesThreadedSimple(int size)
+        public static (bool[], double) FindPrimesThreadedSimple(int size)
         {
             bool[] primes = Enumerable.Repeat(true, size).ToArray();
             Stopwatch stopwatch = new Stopwatch();
@@ -67,16 +74,16 @@ namespace Eratosthenes
 
             Console.WriteLine("Elapsed Time is {0} ms, using simple 8 threaded solution", stopwatch.ElapsedMilliseconds);
 
-            return primes;
+            return (primes, stopwatch.ElapsedMilliseconds);
         }
 
-        public static void LogSumOfPrimes(bool[] primes)
+        public static double SumPrimes(bool[] primes)
         {
             double total = 0;
             for (int i = 2; i < primes.Length; i++)
                 if (primes[i] == true)
                     total += i;
-            System.Console.WriteLine(total);
+            return total;
         }
 
         public static void LogPrimes(bool[] primes)
@@ -86,6 +93,22 @@ namespace Eratosthenes
                     Console.Write(String.Format("{0} ", i));
 
             System.Console.WriteLine(" ");
+        }
+
+        public static List<int> GetLastTen(bool[] primes)
+        {
+            List<int> lastTen = new List<int>();
+
+            for (int i = primes.Length - 1; i >= 0; i--)
+            {
+                if (lastTen.Count >= 10)
+                    break;
+
+                if (primes[i] == true)
+                    lastTen.Add(i);
+            }
+
+            return lastTen;
         }
     }
 

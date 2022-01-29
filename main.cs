@@ -66,5 +66,73 @@ class PrimeFinder
         }
 
 
+        if (args.Length > 0 && args[0].Equals("single"))
+        {
+            string fileName = "./output/primes-single.txt";
+            try
+            {
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
+                using (StreamWriter stream = File.CreateText(fileName))
+                {
+                    stream.WriteLine("Optimal Find Single Thread.\n");
+
+                    (bool[] primes, double runtime) = Primes.FindPrimes(100000000);
+                    stream.Write(String.Format("{0}ms ", runtime));
+
+                    int totalPrimes = primes.Length;
+                    stream.Write(String.Format("{0} ", totalPrimes));
+
+                    double sumOfPrimes = Primes.SumPrimes(primes);
+                    stream.WriteLine(String.Format("{0}", sumOfPrimes));
+
+                    List<int> lastTen = Primes.GetLastTen(primes);
+                    lastTen.Sort();
+                    foreach (int prime in lastTen)
+                        stream.Write(String.Format("{0} ", prime));
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
+        }
+        else
+        {
+            string fileName = "./output/output.txt";
+            try
+            {
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
+                using (StreamWriter stream = File.CreateText(fileName))
+                {
+                    (bool[] primes, double runtime) = Primes.FindPrimesThreadedSimple(100000000);
+                    stream.Write(String.Format("{0}ms ", runtime));
+
+                    int totalPrimes = primes.Length;
+                    stream.Write(String.Format("{0} ", totalPrimes));
+
+                    double sumOfPrimes = Primes.SumPrimes(primes);
+                    stream.WriteLine(String.Format("{0}", sumOfPrimes));
+
+                    List<int> lastTen = Primes.GetLastTen(primes);
+                    lastTen.Sort();
+                    foreach (int prime in lastTen)
+                        stream.Write(String.Format("{0} ", prime));
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
+        }
+
+
+
+
     }
 }
