@@ -1,22 +1,29 @@
 using System;
 using Eratosthenes;
+using PrimeUtil;
 
 
 class PrimeFinder
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        bool[] primes = Eratosthenes.Primes.FindPrimes(2000);
-        Eratosthenes.Primes.LogSumOfPrimes(primes);
+        if (args.Length > 0 && args[0].Equals("slow"))
+        {
+            SlowPrime slowPrime = new SlowPrime(3000);
+            slowPrime.FindPrimes();
+            Console.WriteLine(slowPrime.SumOfPrimes());
+            // slowPrime.PrintPrimes();
+            Console.WriteLine(slowPrime.Runtime);
 
-        bool[] primes2 = Eratosthenes.Primes.FindPrimesThreadedSimple(2000);
-        Eratosthenes.Primes.LogSumOfPrimes(primes2);
+            System.Console.WriteLine("----");
 
-        bool[] primes3 = Eratosthenes.Primes.FindPrimesThreaded(2000);
-        Eratosthenes.Primes.LogSumOfPrimes(primes3);
+            SlowPrime slowPrimeThreaded = new SlowPrime(3000);
+            slowPrimeThreaded.FindPrimesThreaded();
+            Console.WriteLine(slowPrimeThreaded.SumOfPrimes());
+            // slowPrimeThreaded.PrintPrimes();
+            Console.WriteLine(String.Format("miliseocnds: {0}", slowPrimeThreaded.Runtime));
+        }
 
-        // Eratosthenes.Primes.LogPrimes(primes);
-        // Eratosthenes.Primes.LogPrimes(primes2);
-        // Eratosthenes.Primes.LogPrimes(primes3);
+
     }
 }
