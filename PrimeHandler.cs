@@ -36,9 +36,9 @@ namespace PrimeUtil
                 Console.Write(String.Format("{0}, ", prime));
         }
 
-        public int SumOfPrimes()
+        public double SumOfPrimes()
         {
-            int sum = 0;
+            double sum = 0;
             foreach (int prime in Primes)
                 sum += prime;
 
