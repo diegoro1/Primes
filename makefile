@@ -6,3 +6,6 @@ run:
 
 slow:
 	mono main.exe slow
+
+single:
+	mono main.exe single
