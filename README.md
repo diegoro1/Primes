@@ -38,7 +38,6 @@ The best functioning output that ran multiple threads would be "primes-slow.txt"
 The output "primes-single.txt" does all the work in a single thread running the [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) algorithm. This is the most efficient method within the project and the main goal was to make it more efficient by using multiple threads.
 
 Output.txt is currently buggy as the calculations are bouncing out of bounds of the primes array. It works perfectly well with smaller outputs but it currently does not work with the 10^8 input.
-```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
